@@ -1,48 +1,82 @@
-class Student {
-    private String name;
-    private int age;
-    private int rollNumber;
-    private double marks;
+class Employee {
+
+    // Encapsulated data members
+    private int employeeId;
+    private String employeeName;
+    private String department;
+    private double salary;
 
     // Constructor
-    public Student(String name, int age, int rollNumber, double marks) {
-        this.name = name;
-        this.age = age;
-        this.rollNumber = rollNumber;
-        this.marks = marks;
-    }
+    public Employee(int employeeId, String employeeName,
+                    String department, double salary) {
 
-    // Method to display student details
-    public void displayDetails() {
-        System.out.println("\n===== STUDENT DETAILS =====");
-        System.out.println("Name       : " + name);
-        System.out.println("Age        : " + age);
-        System.out.println("Roll Number : " + rollNumber);
-        System.out.println("Marks      : " + marks);
-    }
-
-    // Method to check result
-    public void checkResult() {
-        if (marks >= 40) {
-            System.out.println("Result     : PASS");
-        } else {
-            System.out.println("Result     : FAIL");
+        if (employeeId <= 0) {
+            throw new IllegalArgumentException("Invalid employee ID.");
         }
+
+        if (employeeName == null || employeeName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Employee name cannot be empty.");
+        }
+
+        if (department == null || department.trim().isEmpty()) {
+            throw new IllegalArgumentException("Department cannot be empty.");
+        }
+
+        if (salary < 0) {
+            throw new IllegalArgumentException("Salary cannot be negative.");
+        }
+
+        this.employeeId = employeeId;
+        this.employeeName = employeeName;
+        this.department = department;
+        this.salary = salary;
+    }
+
+    // Method to increase salary
+    public void increaseSalary(double percentage) {
+
+        if (percentage <= 0) {
+            System.out.println("Invalid salary increment.");
+            return;
+        }
+
+        salary += salary * percentage / 100;
+        System.out.printf(
+                "Salary increased by %.1f%%%n", percentage
+        );
+    }
+
+    // Method to display employee details
+    public void displayDetails() {
+
+        System.out.println("\n========== EMPLOYEE DETAILS ==========");
+        System.out.println("Employee ID : " + employeeId);
+        System.out.println("Name        : " + employeeName);
+        System.out.println("Department  : " + department);
+        System.out.printf("Salary      : ₹%.2f%n", salary);
+        System.out.println("=======================================");
     }
 }
 
 public class Main {
+
     public static void main(String[] args) {
 
-        // Creating objects
-        Student student1 = new Student("prem", 20, 101, 85.5);
-        Student student2 = new Student("Rahul", 21, 102, 72.0);
+        // Creating objects from Employee class
+        Employee employee1 = new Employee(
+                101, "Rahul Sharma", "IT", 45000
+        );
 
-        // Display details
-        student1.displayDetails();
-        student1.checkResult();
+        Employee employee2 = new Employee(
+                102, "Priya Mehta", "Finance", 50000
+        );
 
-        student2.displayDetails();
-        student2.checkResult();
+        // Performing operations using objects
+        employee1.increaseSalary(10);
+        employee2.increaseSalary(8);
+
+        // Displaying object data
+        employee1.displayDetails();
+        employee2.displayDetails();
     }
 }

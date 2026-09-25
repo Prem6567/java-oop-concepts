@@ -1,60 +1,29 @@
-class Employee {
+class BankAccount {
 
-    // Encapsulated data members
-    private int employeeId;
-    private String employeeName;
-    private String department;
-    private double salary;
+    private String accountHolder;
+    private double balance;
 
     // Constructor
-    public Employee(int employeeId, String employeeName,
-                    String department, double salary) {
-
-        if (employeeId <= 0) {
-            throw new IllegalArgumentException("Invalid employee ID.");
-        }
-
-        if (employeeName == null || employeeName.trim().isEmpty()) {
-            throw new IllegalArgumentException("Employee name cannot be empty.");
-        }
-
-        if (department == null || department.trim().isEmpty()) {
-            throw new IllegalArgumentException("Department cannot be empty.");
-        }
-
-        if (salary < 0) {
-            throw new IllegalArgumentException("Salary cannot be negative.");
-        }
-
-        this.employeeId = employeeId;
-        this.employeeName = employeeName;
-        this.department = department;
-        this.salary = salary;
+    BankAccount(String accountHolder, double balance) {
+        this.accountHolder = accountHolder;
+        this.balance = balance;
     }
 
-    // Method to increase salary
-    public void increaseSalary(double percentage) {
-
-        if (percentage <= 0) {
-            System.out.println("Invalid salary increment.");
-            return;
-        }
-
-        salary += salary * percentage / 100;
-        System.out.printf(
-                "Salary increased by %.1f%%%n", percentage
-        );
+    // Display account details
+    void displayAccountDetails() {
+        System.out.println("===== Bank Account Details =====");
+        System.out.println("Account Holder : " + accountHolder);
+        System.out.println("Balance        : ₹" + balance);
     }
 
-    // Method to display employee details
-    public void displayDetails() {
-
-        System.out.println("\n========== EMPLOYEE DETAILS ==========");
-        System.out.println("Employee ID : " + employeeId);
-        System.out.println("Name        : " + employeeName);
-        System.out.println("Department  : " + department);
-        System.out.printf("Salary      : ₹%.2f%n", salary);
-        System.out.println("=======================================");
+    // Deposit money
+    void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+            System.out.println("Deposited      : ₹" + amount);
+        } else {
+            System.out.println("Invalid deposit amount.");
+        }
     }
 }
 
@@ -62,21 +31,16 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // Creating objects from Employee class
-        Employee employee1 = new Employee(
-                101, "Rahul Sharma", "IT", 45000
-        );
+        // Creating object using constructor
+        BankAccount account =
+                new BankAccount("Satish Kumar", 10000);
 
-        Employee employee2 = new Employee(
-                102, "Priya Mehta", "Finance", 50000
-        );
+        account.displayAccountDetails();
 
-        // Performing operations using objects
-        employee1.increaseSalary(10);
-        employee2.increaseSalary(8);
+        account.deposit(2500);
 
-        // Displaying object data
-        employee1.displayDetails();
-        employee2.displayDetails();
+        System.out.println("\nAfter Deposit:");
+        account.displayAccountDetails();
     }
 }
+    

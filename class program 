@@ -1,46 +1,71 @@
 class BankAccount {
-
     private String accountHolder;
     private double balance;
 
-    // Constructor
-    BankAccount(String accountHolder, double balance) {
+    public BankAccount(String accountHolder, double balance) {
         this.accountHolder = accountHolder;
         this.balance = balance;
     }
 
-    // Display account details
-    void displayAccountDetails() {
-        System.out.println("===== Bank Account Details =====");
+    public String getAccountHolder() {
+        return accountHolder;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void displayAccountDetails() {
         System.out.println("Account Holder : " + accountHolder);
         System.out.println("Balance        : ₹" + balance);
     }
+}
 
-    // Deposit money
-    void deposit(double amount) {
-        if (amount > 0) {
-            balance += amount;
-            System.out.println("Deposited      : ₹" + amount);
-        } else {
-            System.out.println("Invalid deposit amount.");
-        }
+class SavingsAccount extends BankAccount {
+    private double interestRate;
+
+    public SavingsAccount(String accountHolder, double balance, double interestRate) {
+        super(accountHolder, balance);
+        this.interestRate = interestRate;
+    }
+
+    @Override
+    public void displayAccountDetails() {
+        super.displayAccountDetails();
+        System.out.println("Interest Rate  : " + interestRate + "%");
+    }
+}
+
+class PremiumSavingsAccount extends SavingsAccount {
+    private String accountType;
+
+    public PremiumSavingsAccount(String accountHolder, double balance,
+                                 double interestRate, String accountType) {
+        super(accountHolder, balance, interestRate);
+        this.accountType = accountType;
+    }
+
+    @Override
+    public void displayAccountDetails() {
+        super.displayAccountDetails();
+        System.out.println("Account Type   : " + accountType);
     }
 }
 
 public class Main {
-
     public static void main(String[] args) {
 
-        // Creating object using constructor
-        BankAccount account =
-                new BankAccount("Satish Kumar", 10000);
+        PremiumSavingsAccount account =
+                new PremiumSavingsAccount(
+                        "Rahul Sharma",
+                        75000.00,
+                        6.5,
+                        "Premium"
+                );
 
+        System.out.println("===== BANK ACCOUNT DETAILS =====");
         account.displayAccountDetails();
-
-        account.deposit(2500);
-
-        System.out.println("\nAfter Deposit:");
-        account.displayAccountDetails();
+        System.out.println("================================");
     }
 }
     

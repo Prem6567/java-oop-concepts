@@ -1,71 +1,35 @@
-class BankAccount {
-    private String accountHolder;
-    private double balance;
+// Professional OOP Polymorphism Example
 
-    public BankAccount(String accountHolder, double balance) {
-        this.accountHolder = accountHolder;
-        this.balance = balance;
-    }
-
-    public String getAccountHolder() {
-        return accountHolder;
-    }
-
-    public double getBalance() {
-        return balance;
-    }
-
-    public void displayAccountDetails() {
-        System.out.println("Account Holder : " + accountHolder);
-        System.out.println("Balance        : ₹" + balance);
+class Employee {
+    void calculateSalary() {
+        System.out.println("Employee salary calculation");
     }
 }
 
-class SavingsAccount extends BankAccount {
-    private double interestRate;
-
-    public SavingsAccount(String accountHolder, double balance, double interestRate) {
-        super(accountHolder, balance);
-        this.interestRate = interestRate;
-    }
-
+class FullTimeEmployee extends Employee {
     @Override
-    public void displayAccountDetails() {
-        super.displayAccountDetails();
-        System.out.println("Interest Rate  : " + interestRate + "%");
+    void calculateSalary() {
+        System.out.println("Full-Time Employee Salary: ₹50,000");
     }
 }
 
-class PremiumSavingsAccount extends SavingsAccount {
-    private String accountType;
-
-    public PremiumSavingsAccount(String accountHolder, double balance,
-                                 double interestRate, String accountType) {
-        super(accountHolder, balance, interestRate);
-        this.accountType = accountType;
-    }
-
+class PartTimeEmployee extends Employee {
     @Override
-    public void displayAccountDetails() {
-        super.displayAccountDetails();
-        System.out.println("Account Type   : " + accountType);
+    void calculateSalary() {
+        System.out.println("Part-Time Employee Salary: ₹25,000");
     }
 }
 
 public class Main {
     public static void main(String[] args) {
 
-        PremiumSavingsAccount account =
-                new PremiumSavingsAccount(
-                        "Rahul Sharma",
-                        75000.00,
-                        6.5,
-                        "Premium"
-                );
+        // Runtime Polymorphism
+        Employee employee;
 
-        System.out.println("===== BANK ACCOUNT DETAILS =====");
-        account.displayAccountDetails();
-        System.out.println("================================");
+        employee = new FullTimeEmployee();
+        employee.calculateSalary();
+
+        employee = new PartTimeEmployee();
+        employee.calculateSalary();
     }
 }
-    

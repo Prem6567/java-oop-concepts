@@ -1,35 +1,47 @@
-// Professional OOP Polymorphism Example
+// OOP Abstraction Example
+// Demonstrates abstraction using an abstract class
 
-class Employee {
-    void calculateSalary() {
-        System.out.println("Employee salary calculation");
+abstract class BankAccount {
+
+    protected String accountHolder;
+    protected double balance;
+
+    BankAccount(String accountHolder, double balance) {
+        this.accountHolder = accountHolder;
+        this.balance = balance;
+    }
+
+    // Abstract method
+    abstract void calculateInterest();
+
+    // Concrete method
+    void displayAccountDetails() {
+        System.out.println("Account Holder: " + accountHolder);
+        System.out.println("Account Balance: ₹" + balance);
     }
 }
 
-class FullTimeEmployee extends Employee {
-    @Override
-    void calculateSalary() {
-        System.out.println("Full-Time Employee Salary: ₹50,000");
-    }
-}
+class SavingsAccount extends BankAccount {
 
-class PartTimeEmployee extends Employee {
+    SavingsAccount(String accountHolder, double balance) {
+        super(accountHolder, balance);
+    }
+
     @Override
-    void calculateSalary() {
-        System.out.println("Part-Time Employee Salary: ₹25,000");
+    void calculateInterest() {
+        double interest = balance * 0.04;
+        System.out.println("Annual Interest: ₹" + interest);
     }
 }
 
 public class Main {
+
     public static void main(String[] args) {
 
-        // Runtime Polymorphism
-        Employee employee;
+        BankAccount account =
+                new SavingsAccount("Rahul", 100000);
 
-        employee = new FullTimeEmployee();
-        employee.calculateSalary();
-
-        employee = new PartTimeEmployee();
-        employee.calculateSalary();
+        account.displayAccountDetails();
+        account.calculateInterest();
     }
 }

@@ -1,47 +1,43 @@
-// OOP Abstraction Example
-// Demonstrates abstraction using an abstract class
+class Student {
+    private String name;
+    private int age;
 
-abstract class BankAccount {
-
-    protected String accountHolder;
-    protected double balance;
-
-    BankAccount(String accountHolder, double balance) {
-        this.accountHolder = accountHolder;
-        this.balance = balance;
+    public Student(String name, int age) {
+        this.name = name;
+        this.age = age;
     }
 
-    // Abstract method
-    abstract void calculateInterest();
-
-    // Concrete method
-    void displayAccountDetails() {
-        System.out.println("Account Holder: " + accountHolder);
-        System.out.println("Account Balance: ₹" + balance);
-    }
-}
-
-class SavingsAccount extends BankAccount {
-
-    SavingsAccount(String accountHolder, double balance) {
-        super(accountHolder, balance);
+    public String getName() {
+        return name;
     }
 
-    @Override
-    void calculateInterest() {
-        double interest = balance * 0.04;
-        System.out.println("Annual Interest: ₹" + interest);
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        if (age > 0) {
+            this.age = age;
+        }
     }
 }
 
 public class Main {
-
     public static void main(String[] args) {
 
-        BankAccount account =
-                new SavingsAccount("Rahul", 100000);
+        Student student = new Student("Rahul", 20);
 
-        account.displayAccountDetails();
-        account.calculateInterest();
+        System.out.println("Name: " + student.getName());
+        System.out.println("Age: " + student.getAge());
+
+        student.setName("Aman");
+        student.setAge(21);
+
+        System.out.println("Updated Name: " + student.getName());
+        System.out.println("Updated Age: " + student.getAge());
     }
 }
